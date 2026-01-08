@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Resume
+src/assets/John_Nti_Anokye_Resume.pdf

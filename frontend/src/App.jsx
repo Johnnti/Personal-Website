@@ -1,28 +1,48 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
 import './App.css'
 import './index.css'
-import './assets/background.jpg'
 import Star from './components/star.jsx'
-import Navbar from './components/navbar.jsx'
-import About from './components/about.jsx'
+import Hero from './components/Hero.jsx'
+import Projects from './components/Projects.jsx'
+import Experience from './components/Experience.jsx'
+import Contact from './components/Contact.jsx'
+
 function App() {
-  
+  // Memoize stars so they don't regenerate on every render
+  const stars = useMemo(() => {
+    return Array.from({ length: 200 }).map((_, i) => ({
+      id: i,
+      top: Math.random() * 100,
+      left: Math.random() * 100,
+      size: Math.random() * 0.15 + 0.05,
+      delay: Math.random() * 5,
+      brightness: Math.random() > 0.9 ? 'bright' : 'normal'
+    }));
+  }, []);
+
   return (
-    <div className="relative min-w-screen min-h-screen wallpaper flex justify-center items-center">
-      {Array.from({ length: 1000 }).map((_, i) => {
-        const top = Math.random() * 100 ;
-        const left = Math.random() * 100;
-        const size = Math.random() * 0.2;
-        const delay = Math.random() * 50;
-        return <Star key={i}  top={top} left={left} size={size} delay={delay}/>})}
-      <div className="relative grid min-w-screen min-h-screen grid-cols-5 grid-rows-[0.3fr_3fr_1fr_1fr_1fr] items-center auto-cols-auto gap-y-10 mt-10">
-        <div class="col-span-1"></div>< Navbar/><div class="col-span-1"></div>
-        <div className="border w-full h-full about col-span-1 row-start-2 col-start-2 rounded-sm flex flex-col items-center justify-sp bg-neutral-800"><About /></div>
-        <div className="absolute top-20 w-40 h-40 right-0 myWork col-span-1 ml-20 col-start-3 rounded-full bg-neutral-800"></div>
-        <div className="border w-full h-full mySkills col-span-4 bg-neutral-800"></div>
-        <div className="border w-full h-full interests col-span-4 margin bg-neutral-800"></div>
+    <div className="relative min-w-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 overflow-x-hidden">
+      {/* Star Background - Fixed */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        {stars.map((star) => (
+          <Star 
+            key={star.id} 
+            top={star.top} 
+            left={star.left} 
+            size={star.size} 
+            delay={star.delay}
+            brightness={star.brightness}
+          />
+        ))}
       </div>
-      
+
+      {/* Main Content */}
+      <main className="relative z-10">
+        <Hero />
+        <Projects />
+        <Experience />
+        <Contact />
+      </main>
     </div>
   )
 }
