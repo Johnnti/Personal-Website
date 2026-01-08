@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import profilePic from '../assets/profile_pic.png';
 
 export default function Hero() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -103,7 +104,7 @@ export default function Hero() {
               {/* Profile Image */}
               <div className="profile-image-wrapper">
                 <img 
-                  src="/src/assets/profile_pic.png" 
+                  src={profilePic} 
                   alt="John Nti Anokye" 
                   className="w-full h-full object-cover"
                 />
